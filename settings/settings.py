@@ -45,9 +45,9 @@ INSTALLED_APPS = [
 
     # сторонние пакеты
     'rest_framework',
-
-    # Пользовательские приложения
-    'payments',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +148,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
-CELERY_BROKER_URL = SECRETS.get('celery_broker_url', 'redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = SECRETS.get('celery_broker_url', 'redis://localhost:6379/0')
