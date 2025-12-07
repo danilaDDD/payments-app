@@ -45,9 +45,9 @@ INSTALLED_APPS = [
 
     # сторонние пакеты
     'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders',
-    'django_filters',
+
+    #Пользовательские приложения
+    'apps.payments',
 ]
 
 MIDDLEWARE = [
