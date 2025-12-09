@@ -11,26 +11,22 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import json
 import os
-from pathlib import Path
 
+import environ
 
 # SECURITY WARNING: keep the secret key used in production secret!
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-try:
-    with open(os.path.join(BASE_DIR, 'conf', 'secrets.json')) as handle:
-        SECRETS = json.load(handle)
-except IOError:
-    SECRETS = {
-        'secret_key': 'a'
-    }
+ENV = os.environ.get('ENV', 'dev')
+env = environ.Env()
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, 'config', f'.env.{ENV}'))
 
-SECRET_KEY = SECRETS.get('secret_key', 'a')
+SECRET_KEY = env('SECRET_KEY', default='a')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = SECRETS.get('debug', True)
+DEBUG = env.bool('DEBUG', True)
 
-ALLOWED_HOSTS = SECRETS.get('allowed_hosts', [])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 
 # Application definition
@@ -41,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'drf_yasg',
     'django.contrib.staticfiles',
 
     # сторонние пакеты
@@ -129,11 +126,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': SECRETS.get('db_name', ''),
-        'USER': SECRETS.get('db_user', ''),
-        'HOST': SECRETS.get('db_host', ''),
-        'PASSWORD': SECRETS.get('db_password', ''),
-        'PORT': SECRETS.get('db_port', ''),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'HOST': env('DB_HOST'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'PORT': env.int('DB_PORT', default=3306),
     },
 }
 
@@ -148,3 +145,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+I18N_PREFIX_DEFAULT_LANGUAGE = False
