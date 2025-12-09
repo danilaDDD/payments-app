@@ -13,7 +13,7 @@ cache
 /media
 /static
 /logs/*
-/conf/*
+/config/.env*
 
 env
 venv
