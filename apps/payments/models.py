@@ -16,6 +16,8 @@ class Currency(AbsCreated):
 
 
 class Payment(AbsCreated):
+    account = ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='payments',
+                         verbose_name='Пользователь')
     amount = models.DecimalField('Cумма выплаты', max_digits=10, decimal_places=2)
     currency = ForeignKey(Currency, on_delete=models.CASCADE, related_name='payments')
     comment = models.TextField('Комментарий', blank=True, null=True)
