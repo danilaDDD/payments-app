@@ -29,7 +29,7 @@ schema_view = get_schema_view(
         default_version='v1',
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=[permissions.AllowAny,],
 )
 
 urlpatterns = [
@@ -39,5 +39,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("api/", include("apps.payments.urls", namespace="payments")),
+    path("api/", include("apps.accounts.urls", namespace="accounts")),
+
     prefix_default_language=settings.I18N_PREFIX_DEFAULT_LANGUAGE
 )

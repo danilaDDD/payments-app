@@ -42,9 +42,11 @@ INSTALLED_APPS = [
 
     # сторонние пакеты
     'rest_framework',
+    'rest_framework_simplejwt',
 
     #Пользовательские приложения
     'apps.payments',
+    'apps.accounts.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,5 @@ REST_FRAMEWORK = {
 }
 
 I18N_PREFIX_DEFAULT_LANGUAGE = False
+
+AUTH_USER_MODEL = 'accounts.Account'

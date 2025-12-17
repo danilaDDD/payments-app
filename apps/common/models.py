@@ -7,3 +7,14 @@ class AbsCreated(models.Model):
 
     class Meta:
         abstract = True
+
+
+class AbsActive(models.Model):
+    """
+    Модель, помогающая отследить активность объекта.
+    """
+
+    is_active = models.BooleanField('Активность', default=True)
+
+    class Meta:
+        abstract = True
