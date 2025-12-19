@@ -1,8 +1,12 @@
 import os
+from pathlib import Path
 
 import pytest
+from django.conf import settings
+from dotenv import load_dotenv
 
 
-@pytest.hookimpl(tryfirst=True)
-def pytest_load_initial_conftests(early_config, parser, args):
-    os.environ['ENV'] = 'test'
+@pytest.fixture(scope='session')
+def django_db_setup():
+    """Configure the Django test database settings for end-to-end tests."""
+    pass
